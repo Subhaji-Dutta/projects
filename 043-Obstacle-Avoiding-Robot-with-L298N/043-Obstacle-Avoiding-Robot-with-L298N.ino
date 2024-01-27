@@ -2,13 +2,13 @@
 #include <NewPing.h>        //Ultrasonic sensor function library. You must install this library
 
 //our L298N control pins
-const int LeftMotorForward = 7;
-const int LeftMotorBackward = 6;
+const int LeftMotorForward = 6;
+const int LeftMotorBackward = 5;
 const int RightMotorForward = 4;
-const int RightMotorBackward = 5;
+const int RightMotorBackward = 3;
 
 //sensor pins
-#define trig_pin A1 //analog input 1
+#define trig_pin A0 //analog input 1
 #define echo_pin A2 //analog input 2
 
 #define maximum_distance 200
@@ -26,6 +26,7 @@ void setup(){
   pinMode(LeftMotorBackward, OUTPUT);
   pinMode(RightMotorBackward, OUTPUT);
   Serial.begin(9600);
+  
   servo_motor.attach(10); //our servo pin
 
   servo_motor.write(115);
@@ -45,8 +46,9 @@ void loop(){
   int distanceRight = 0;
   int distanceLeft = 0;
   delay(50);
-Serial.println (distance);
-  if (distance <= 20){
+
+  if (distance <= 35){
+    Serial.println(distance);
     moveStop();
     delay(300);
     moveBackward();
